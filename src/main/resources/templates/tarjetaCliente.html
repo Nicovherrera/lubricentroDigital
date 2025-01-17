@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head"></head>
+<body>
+  
+  <section data-bs-version="5.1" class="menu menu3 cid-ug0nmDUkh7" once="menu" id="menu3-b">
+      <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+        <div class="container">
+            <div class="navbar-brand">
+                
+                <span class="navbar-caption-wrap"><a class="navbar-caption text-secondary text-primary display-7" href="#">Lubricentro Digital</a></span>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+                <div class="icons-menu">
+                    <a class="iconfont-wrapper" href="https://www.instagram.com/nicovherrera/" target="_blank">
+                        <span class="p-2 mbr-iconfont socicon-facebook socicon"></span>
+                    </a>
+                    <a class="iconfont-wrapper" href="https://www.instagram.com/nicovherrera/" target="_blank">
+                        <span class="p-2 mbr-iconfont socicon-instagram socicon"></span>
+                    </a>
+                    
+                    
+                </div>
+                
+            </div>
+        </div>
+    </nav>
+</section>
+
+<section data-bs-version="5.1" class="features4 cid-ug13NcXIgn" id="features4-i">
+
+
+            <div class="container">
+                <div class="mbr-section-head">
+                    <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+                        <strong id="nombre"></strong></h4>
+                    <h5 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-2 display-5" id="slogan"></h5>
+                </div>
+                <div class="row mt-4">
+                    <div class="item features-image сol-12 col-md-6 col-lg-12">
+                        <div class="item-wrapper">
+                            <div class="item-img mb-5">
+                                <img th:if="${session.usuariosession.foto==null}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
+                                <img th:if="${session.usuariosession.foto!=null}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
+                            </div>
+
+                            <div class="col-lg-6 offset-lg-1 mbr-form" data-form-type=""> 
+                                <form th:action="@{/modificarTarjeta}" method="POST" class="mbr-form form-with-styler">
+                                    <input type="hidden" th:name="id" th:value="${clientes.id}">
+                                    <input type="hidden" th:name="nombreCliente" th:value="${clientes.nombreCliente}">
+                                    <input type="hidden" th:name="patente" th:value="${clientes.patente}">
+
+                                    <div class="dragArea row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <h2 class="mbr-section-subtitle mb-5 display-2">
+                                                <strong th:text="'Cliente: '+${clientes.nombreCliente}+' - Patente: '+${clientes.patente}" ></strong>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <Strong class="col-lg-auto form-group bg-gradient align-content-center">Fecha de Cambio: </strong>
+                                        <div data-for="name" class="col-lg-6 col-md-12 col-sm-12 form-group mb-3 mb-3">
+                                            <input type="text" th:name="marca" th:value="${clientes.fechaCarga}"
+                                                   mbr-theme-style="display-4" class="form-control" value disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <Strong class="col-lg-3 form-group bg-gradient align-content-center">Marca: </strong>
+                                        <div data-for="name" class="col-lg-6 col-md-12 col-sm-12 form-group mb-3 mb-3">
+                                            <input type="text" th:name="marca" th:value="${clientes.marca}"
+                                                   mbr-theme-style="display-4" class="form-control" value disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <Strong class="col-lg-3 form-group align-content-center">Modelo: </strong>
+                                        <div data-for="name" class="col-lg-6 col-md-12 col-sm-12 form-group mb-3 mb-3">
+                                            <input type="text" th:name="modelo" th:value="${clientes.modelo}"
+                                                   mbr-theme-style="display-4" class="form-control" value disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <Strong class="col-lg-3 form-group align-content-center">Año: </strong>
+                                        <div data-for="name" class="col-lg-6 col-md-12 col-sm-12 form-group mb-3 mb-3">
+                                            <input type="text" th:name="anio" th:value="${clientes.anio}"
+                                                   mbr-theme-style="display-4" class="form-control" value disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <Strong class="col-lg-auto col-md-6 col-sm-6 mb-3 form-group align-content-center text-primary">Kilometros Actuales:</strong>
+                                        <div data-for="name" class="col-lg-6 col-md-12 col-sm-12 form-group mb-3 mb-3">
+                                            <input type="text" th:name="kmActuales" th:value="${clientes.kmActuales}"
+                                                   mbr-theme-style="display-4" class="form-control" value disabled="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <Strong class="col-lg-5 form-group">Filtro de Aceite</strong>
+                                        <input class="col-lg-6 form-group" type="checkbox" th:if="${clientes.filtroAceite==null || clientes.filtroAceite==false}" th:name="filtroAceite" disabled="">
+                                        <input class="col-lg-6 form-group" type="checkbox" th:if="${clientes.filtroAceite!=null || clientes.filtroAceite==true}" checked="checked" th:name="filtroAceite" disabled="">
+                                    </div>
+                                    <div class="row">
+                                        <Strong class="col-lg-5 form-group">Filtro de Aire</strong>
+                                        <input class="col-lg-6 form-group" type="checkbox" th:if="${clientes.filtroAire==null || clientes.filtroAire==false}" th:name="filtroAire" disabled="">
+                                        <input class="col-lg-6 form-group" type="checkbox" th:if="${clientes.filtroAire!=null || clientes.filtroAire==true}" checked="checked" th:name="filtroAire" disabled="">
+                                    </div>   
+
+                                    <div class="row">
+                                        <Strong class="col-lg-5 form-group">Filtros de Combustible</strong>
+                                        <input class="col-lg-6 form-group" type="checkbox" th:if="${clientes.filtroCombustible==null || clientes.filtroCombustible==false}" th:name="filtroCombustible" disabled="">
+                                        <input class="col-lg-6 form-group" type="checkbox" th:if="${clientes.filtroCombustible!=null || clientes.filtroCombustible==true}" checked="checked" th:name="filtroCombustible" disabled="">
+                                    </div>   
+                                    <td>
+                                        <div class="row">
+                                            <Strong class="col-lg-5 form-group">Aceite de Motor</strong>
+                                            <input class="col-lg-6 form-group" type="checkbox" th:if="${clientes.aceiteMotor==null || clientes.aceiteMotor==false}" th:name="aceiteMotor" disabled="">
+                                            <input class="col-lg-6 form-group" type="checkbox" th:if="${clientes.aceiteMotor!=null || clientes.aceiteMotor==true}" checked="checked" th:name="aceiteMotor" disabled="">
+                                        </div>
+                                        <div class="row">
+                                            <Strong class="col-lg-5 form-group">Aceite de Caja</strong>
+                                            <input class="col-lg-6 form-group" type="checkbox" th:if="${clientes.aceiteCaja==null || clientes.aceiteCaja==false}" th:name="aceiteCaja" disabled="">
+                                            <input class="col-lg-6 form-group" type="checkbox" th:if="${clientes.aceiteCaja!=null || clientes.aceiteCaja==true}" checked="checked" th:name="aceiteCaja" disabled="">
+                                        </div>
+                                        <div class="row">
+                                            <Strong class="col-lg-5 form-group">Aceite de Diferencial</strong>
+                                            <input class="col-lg-6 form-group" type="checkbox" th:if="${clientes.aceiteDiferencial==null || clientes.aceiteDiferencial==false}" th:name="aceiteDiferencial" disabled="">
+                                            <input class="col-lg-6 form-group" type="checkbox" th:if="${clientes.aceiteDiferencial!=null || clientes.aceiteDiferencial==true}" checked="checked" th:name="aceiteDiferencial" disabled="">
+                                        </div>
+                                        <div class="row">
+                                            <Strong class="col-lg-auto col-md-6 col-sm-6 mb-3 form-control align-content-center bg-primary text-white">PROXIMO CAMBIO: </strong>
+                                            <div data-for="name" class="col-lg-6 col-md-6 col-sm-6 form-group mb-3 mb-3 ">
+                                                <input type="text" th:name="kmCambio" th:if="${clientes.kmCambio!=null}" th:value="${clientes.kmCambio}+' km'" disabled=""
+                                                       mbr-theme-style="display-4" class="form-control" value>
+                                            </div>
+                                        </div>
+                                    </td>
+                               </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </section>
+    <section class="display-7" style="padding: 0;align-items: center;justify-content: center;flex-wrap: wrap;    align-content: center;display: flex;position: relative;height: 4rem;"></section>
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  
+    <script src="assets/smoothscroll/smooth-scroll.js"></script>  
+    <script src="assets/ytplayer/index.js"></script>  
+    <script src="assets/dropdown/js/navbar-dropdown.js"></script>  
+    <script src="assets/theme/js/script.js"></script>
+    <script src="assets/theme/js/usuario.js"></script>
+  
+</body>
+</html>

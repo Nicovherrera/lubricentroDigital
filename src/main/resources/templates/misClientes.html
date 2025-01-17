@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="/fragments/head :: head"></head>
+    <body>
+
+        <section data-bs-version="5.1" class="menu menu3 cid-ug0nmDUkh7" once="menu" id="menu3-l">
+            <nav th:replace="/fragments/navbar :: nav"></nav>   
+        </section>
+
+        <section data-bs-version="5.1" class="features3 cid-uhkMcfMxSa" id="features3-v">
+
+
+            <div class="container">
+                <div class="mbr-section-head">
+                    <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+                        <strong>Mis Clientes</strong></h4>
+                    <h5 class="mbr-section-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7" th:text="'Hola: '+ ${session.usuariosession.rol}"></h5>
+                    <h5 class="mbr-section-subtitle mbr-fonts-style align-right mb-2 mt-2 display-7"><a th:href="@{/lubricentro}">Mi lubricentro</a></h5>
+                </div>
+                <div class="row" >
+                    <form th:action="@{/misClientes}" method="GET" class="col-lg-3 form-group bg-gradient align-content-center offset-1" >
+                        <div data-for="name" class="col-lg-6 col-md-12 col-sm-12 form-group mb-3 mb-3">
+                            <input type="text" th:name="nombre" mbr-theme-style="display-4" class="form-control" value>
+                        </div>
+                        <button class="col-lg-6 form-group bg-gradient align-content-center"
+                                type="submit" >Buscar</button>
+                    </form>
+                </div>
+
+                <div class="row mt-4">
+                    <div th:each="clientes:${vehiculos}" class="item features-image сol-12 col-md-6 col-lg-4">
+                        <div class="item-wrapper">
+                            <div class="item-img">
+                                <img th:if="${session.usuariosession.foto==null}" src="assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
+                                <img th:if="${session.usuariosession.foto!=null}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
+                            </div>
+                            <div class="item-content">
+                                <h5 class="item-title mbr-fonts-style display-7"><strong th:text="${clientes.nombreCliente}" ></strong></h5>
+
+                                <p class="mbr-text mbr-fonts-style mt-3 display-7" th:text="${clientes.marca}+' '+${clientes.modelo}"><br></p>
+                                <p class="mbr-text mbr-fonts-style mt-3 display-7" th:if="${clientes.kmCambio != null}" th:text="'Proximo Cambio: '+${clientes.kmCambio}+' km'"><br></p>
+                            </div>
+                            <div class="mbr-section-btn item-footer mt-2">
+                                <a th:href="@{/tarjeta/__${clientes.id}__}" class="btn btn-primary item-btn display-7">Ver +</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Manejo del caso donde no hay páginas -->
+                    <div th:if="${totalPage < 0}" >
+                        <nav aria-label="Paginación">
+                            <ul class="pagination">
+                                <!-- Botón Anterior -->
+                                <li class="page-item" th:classappend="${(currentPage ?: 0) == 0} ? 'disabled'">
+                                    <a class="page-link" th:href="@{/misClientes(page=${(currentPage ?: 0) - 1}, size=3)}">Anterior</a>
+                                </li>
+
+                                <!-- Números de Página -->
+                                <li class="page-item" th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+                                    th:classappend="${pageNum == (currentPage ?: 0)} ? 'active'">
+                                    <a class="page-link" th:href="@{/misClientes(page=${pageNum}, size=3)}" th:text="${pageNum + 1}"></a>
+                                </li>
+
+                                <!-- Botón Siguiente -->
+                                <li class="page-item" th:classappend="${(currentPage ?: 0) + 1 == totalPages} ? 'disabled'">
+                                    <a class="page-link" th:href="@{/misClientes(page=${(currentPage ?: 0) + 1}, size=3)}">Siguiente</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+\                </div>
+                <!-- Caso alternativo si no hay páginas -->
+                <div th:if="${clientes == 0}" class="form-group">
+                    <p>No hay datos disponibles para mostrar, carga tu primer <a href="/misClientes#crearCliente">cliente.</a></p>
+                </div>
+            </div>
+        </section>
+
+        <section data-bs-version="5.1" class="features1 cid-uhdXiBmf0u" id="features2-o">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card-wrapper">
+                            <div class="card-box align-center">
+                                <a href="#form7-p"><span class="mbr-iconfont mobi-mbri-plus mobi-mbri"></span></a>
+                                <h4 class="card-title align-center mbr-black mbr-fonts-style display-7"><a href="#form7-p" ><strong>Agregar un cliente</strong></a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-bs-version="5.1" class="form7 cid-uhe0r6IZZI" id="form7-p">
+            <div class="container">
+                <div class="mbr-section-head">
+                    <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2" id="crearCliente">
+                        <strong>Crear Cliente</strong></h3>
+                </div>
+                <div class="row justify-content-center mt-4">
+                    <div class="col-lg-8 mx-auto mbr-form" data-form-type="">
+                        <form th:action="@{/vehiculoCreado#crearCliente}" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name">
+                            <input type="hidden" th:name="usuarioId" data-form-email="true" th:value="${session.usuariosession.id}">
+
+                            <div class="row">
+                                <div hidden="hidden" class="alert alert-success col-12">Tu cliente ha sido creado con éxito!</div>
+                                <div th:if="${errorV!=null}" th:text="${errorV}" class="alert alert-danger col-12">
+                                </div>
+                            </div>
+                            <div class="dragArea row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="name">
+                                    <input type="text" th:name="nombreCleinte" placeholder="Nombre y Apellido" data-form-field="name" class="form-control" th:value="${nombreV}" id="name-form7-p">
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="email">
+                                    <input type="email" th:name="mail" placeholder="Email" data-form-field="email" class="form-control" value="" id="email-form7-p">
+                                </div>
+                                <div data-for="phone" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
+                                    <input type="tel" th:name="telefono" placeholder="Telefono" data-form-field="Telefono" class="form-control" value="" id="phone-form7-p">
+                                </div>
+                                <div data-for="Marca" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
+                                    <input type="text" th:name="marca" placeholder="Marca" data-form-field="Marca" class="form-control" value="" id="modelo-form7-p">
+                                </div>
+                                <div data-for="Modelo" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
+                                    <input type="text" th:name="modelo" placeholder="Modelo" data-form-field="Modelo" class="form-control" value="" id="modelo-form7-p">
+                                </div>
+                                <div data-for="anio" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
+                                    <input type="number" th:name="anio" placeholder="Año del vehículo" data-form-field="Año" class="form-control" value="" id="anio-form7-p">
+                                </div>
+                                <div data-for="kmActual" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
+                                    <input type="number" th:name="kmActual" placeholder="Kilometros Actuales (Opcional)" data-form-field="kmActual" class="form-control" value="" id="anio-form7-p">
+                                </div>
+                                <div data-for="patente" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
+                                    <input type="text" th:name="patente" placeholder="Dominio/Patente" data-form-field="patente" class="form-control" value="" id="anio-form7-p">
+                                </div>
+                                <div class="col-auto mbr-section-btn align-center"><button type="submit" class="btn btn-primary display-4">Crear!</button></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section><script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  
+        <script src="assets/smoothscroll/smooth-scroll.js"></script>  
+        <script src="assets/ytplayer/index.js"></script>  
+        <script src="assets/dropdown/js/navbar-dropdown.js"></script>  
+        <script src="assets/theme/js/script.js"></script>  
+        <script src="assets/formoid/formoid.min.js"></script>  
+
+
+    </body>
+</html>

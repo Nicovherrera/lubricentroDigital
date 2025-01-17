@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head"></head>
+<body>
+  
+  <section data-bs-version="5.1" class="menu menu3 cid-ug0nmDUkh7" once="menu" id="menu3-8">
+    <nav th:replace="/fragments/navbar :: nav"></nav>
+</section>
+
+<section data-bs-version="5.1" class="form4 cid-ug0nuMYrzJ mbr-fullscreen" id="form4-9">
+
+    <div class="container">
+        <div class="row content-wrapper justify-content-center">
+            <div class="col-lg-3 offset-lg-1 mbr-form" data-form-type=""> 
+                <form th:action="@{/logincheck}" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
+                    <input type="hidden" name="email" data-form-email="true" value="">
+                    <div class="row">
+                        <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Thanks for filling out the form!</div>
+                        <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+                            Oops...! some problem!
+                        </div>
+                    </div>
+                    <div class="dragArea row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <h1 class="mbr-section-title mb-4 display-2">
+                                <strong>Iniciar Sesión</strong></h1>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <p class="mbr-text mbr-fonts-style mb-4 display-7">
+                                No tienes cuenta? <a href="/crearCuenta" class="text-primary">Registrate</a></p>
+                            <p class="mbr-text mbr-fonts-style mb-4 display-7 text-primary" th:text="${error}"></p>
+                            <p class="mbr-text mbr-fonts-style mb-4 display-7 text-success" th:text="${logout}"></p>
+                        </div>
+                        <div class="col-lg-12 col-md col-12 form-group mb-3" data-for="name">
+                            <input type="mail" name="username" placeholder="E-mail" data-form-field="name" class="form-control" value="" id="name-form4-9">
+                        </div>
+                        <div class="col-lg-12 col-md col-12 form-group mb-3" data-for="email">
+                            <input type="password" name="clave1" placeholder="Contraseña" data-form-field="email" class="form-control" value="" id="email-form4-9">
+                        </div>
+                        <div class="col-12 col-md-auto mbr-section-btn">
+                            <button type="submit" class="btn btn-secondary display-4">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-7 offset-lg-1 col-12">
+                <div class="image-wrapper">
+                    <img class="w-100" src="assets/images/mbr-1266x948.jpg" alt="Mobirise Website Builder">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="footer3 cid-ueSdjpg0mu" once="footers" id="footer3-7">
+    <footer th:replace="/fragments/footer :: footer" ></footer>
+</section>
+<script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  
+<script src="assets/smoothscroll/smooth-scroll.js"></script>  
+<script src="assets/ytplayer/index.js"></script>  
+<script src="assets/dropdown/js/navbar-dropdown.js"></script>  
+<script src="assets/theme/js/script.js"></script>  
+<script src="assets/formoid/formoid.min.js"></script>  
+  
+  
+</body>
+</html>
