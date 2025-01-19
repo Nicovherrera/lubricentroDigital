@@ -49,7 +49,7 @@ public class VehiculoControlador {
         
         mapa.put("clientes", vNuevo);
         
-        return "/tarjeta";
+        return "tarjeta";
     }
     @PostMapping("/modificarTarjeta")
     public String modificarTarjeta (ModelMap mapa, HttpSession session, @RequestParam String id, String nombreCliente, String marca,
@@ -70,6 +70,6 @@ public class VehiculoControlador {
         
         mapa.put("clientes", vCliente);
         
-        return "/tarjetaCliente";
+        return "tarjetaCliente";
     }
 }

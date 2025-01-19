@@ -45,7 +45,7 @@ public class ControladorPrincipal {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/lubricentro")
     private String lubricentro (){
-        return "/lubricentro";
+        return "lubricentro";
     }
     
 }
