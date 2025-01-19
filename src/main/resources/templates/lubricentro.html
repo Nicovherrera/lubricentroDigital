@@ -34,7 +34,7 @@
                             <label for="foto" class="form-label">Foto de Portada</label>
                             <input type="file" class="form-control" id="foto" name="foto">
                             <div class="mt-3">
-                                <img th:if="${session.usuariosession.foto != null}" th:src="${'./foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto de portada" class="img-fluid rounded">
+                                <img th:if="${session.usuariosession.foto != null}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto de portada" class="img-fluid rounded">
                                 <p th:if="${session.usuariosession.foto == null}" class="text-muted">No se ha subido una foto aún.</p>
                             </div>
                         </div>
