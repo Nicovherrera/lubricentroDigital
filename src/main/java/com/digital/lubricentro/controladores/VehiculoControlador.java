@@ -69,7 +69,7 @@ public class VehiculoControlador {
         Vehiculo vCliente = vs.buscarVehiculoPorId(id);
         
         mapa.put("lubri", vCliente.getUs());
-        
+        mapa.put("foto", vCliente.getUs().getFoto().getMime());
         mapa.put("clientes", vCliente);
         
         return "tarjetaCliente";
