@@ -31,7 +31,7 @@
                     <div th:each="clientes:${vehiculos}" class="item features-image сol-12 col-md-6 col-lg-4">
                         <div class="item-wrapper">
                             <div class="item-img">
-                                <img th:if="${session.usuariosession.id.isEmpty()}" src="./images/mbr-696x391.jpg" alt="Foto Lubricentro">
+                                <img th:if="${session.usuariosession.foto.isEmpty()}" src="./images/mbr-696x391.jpg" alt="Foto Lubricentro">
                                 <img th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
                             </div>
                             <div class="item-content">
