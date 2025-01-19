@@ -47,7 +47,7 @@
                     <div class="item features-image сol-12 col-md-6 col-lg-12">
                         <div class="item-wrapper">
                             <div class="item-img mb-5">
-                                <img th:if="${foto=='application/octet-stream'}" src="./assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
+                                <img th:if="${foto=='application/octet-stream'}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
                                 <img th:if="${foto!='application/octet-stream'}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
 <!--                                <img th:if="${lubri.foto==null || lubri.foto.isEmpty}" src="./assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">-->
                                 <!--<img th:src="${'/foto/lubriRegistro/' + lubri.id}" alt="Foto Lubricentro">-->
