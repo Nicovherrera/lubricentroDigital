@@ -47,8 +47,8 @@
                     <div class="item features-image сol-12 col-md-6 col-lg-12">
                         <div class="item-wrapper">
                             <div class="item-img mb-5">
-                                <img th:if="${lubri==null}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
-                                <img th:if="${lubri!=null}" th:src="${'/foto/lubriRegistro/' + lubri}" alt="Foto Lubricentro">
+                                <img th:if="${lubri.foto==null}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
+                                <img th:if="${lubri.foto!=null}" th:src="${'/foto/lubriRegistro/' + lubri.id}" alt="Foto Lubricentro">
                             </div>
 
                             <div class="col-lg-6 offset-lg-1 mbr-form" data-form-type=""> 

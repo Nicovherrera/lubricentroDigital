@@ -20,8 +20,8 @@
                     <div class="item features-image сol-12 col-md-6 col-lg-12">
                         <div class="item-wrapper">
                             <div class="item-img mb-3">
-                                <img th:if="${session.usuariosession.foto==null}" src="./assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
-                                <img th:if="${session.usuariosession.foto!=null}" th:src="${'./foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
+                                <img th:if="${session.usuariosession.foto==null}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
+                                <img th:if="${session.usuariosession.foto!=null}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
                             </div>
                             <div class="dragArea row ">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
@@ -157,7 +157,8 @@
                                 <div>
                                     <div class="mbr-social-likes align-center" data-counters="false">
                                         <span mbr-if="whatsapp" class="btn btn-social whatsapp m-2">
-                                            <a th:href="@{/tarjetaCliente/__${clientes.id}__}" target="_balnk" ><i class="mbr-iconfont mobi-mbri-share mobi-mbri"></i></a>
+                                            
+                                            <a th:href="@{https://api.whatsapp.com/send?text=¡Mirá este sitio web! http://localhost:8080/tarjetaCliente/__${clientes.id}__}" target="_balnk" ><i class="mbr-iconfont mobi-mbri-share mobi-mbri"></i></a>
                                         </span>
                                     </div>
                                 </div>

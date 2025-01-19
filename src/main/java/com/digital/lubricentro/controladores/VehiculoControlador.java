@@ -64,11 +64,11 @@ public class VehiculoControlador {
     }
     
     @GetMapping("/tarjetaCliente/{id}")
-    public String tarjetaCliente (ModelMap mapa, HttpSession session, @PathVariable String id){
-                
+    public String tarjetaCliente (ModelMap mapa, HttpSession session, @PathVariable String id) throws ErrorServicio{
+       
         Vehiculo vCliente = vs.buscarVehiculoPorId(id);
         
-        mapa.put("lubri", vCliente.getUs().getId());
+        mapa.put("lubri", vCliente.getUs());
         
         mapa.put("clientes", vCliente);
         
