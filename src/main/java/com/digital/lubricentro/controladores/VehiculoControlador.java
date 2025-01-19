@@ -1,7 +1,9 @@
 package com.digital.lubricentro.controladores;
 
+import com.digital.lubricentro.entidades.Usuario;
 import com.digital.lubricentro.entidades.Vehiculo;
 import com.digital.lubricentro.errores.ErrorServicio;
+import com.digital.lubricentro.servicios.UsuarioServicio;
 import com.digital.lubricentro.servicios.VehiculoServicio;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +22,19 @@ public class VehiculoControlador {
     @Autowired
     private VehiculoServicio vs;
     
+    @Autowired
+    private UsuarioServicio us;
+    
     @PostMapping("/vehiculoCreado")
-    public String crearVehiculo (ModelMap mapa, @RequestParam String nombreCleinte,@RequestParam String mail,
+    public String crearVehiculo (ModelMap mapa, HttpSession session, @RequestParam String nombreCleinte,@RequestParam String mail,
             @RequestParam String telefono, @RequestParam String marca,@RequestParam String modelo, 
             @RequestParam (defaultValue = "0") Integer anio, Integer kmActual, @RequestParam String patente, @RequestParam String usuarioId) throws ErrorServicio{
         
         try{
             vs.crearVehiculo(nombreCleinte, mail, telefono, marca, modelo, anio, kmActual, patente,usuarioId);
+            Usuario u = us.buscarUsuario(session.getId());
+            mapa.put("foto", u.getFoto().getMime()); 
+            
             return "redirect:/misClientes";
         }catch(ErrorServicio e){
             mapa.addAttribute("errorV", e.getMessage());
@@ -48,6 +56,7 @@ public class VehiculoControlador {
         Vehiculo vNuevo = vs.buscarVehiculoPorId(id);
         
         mapa.put("clientes", vNuevo);
+        mapa.put("foto", vNuevo.getUs().getFoto().getMime());
         
         return "tarjeta";
     }
