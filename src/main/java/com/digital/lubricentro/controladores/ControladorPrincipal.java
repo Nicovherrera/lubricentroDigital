@@ -16,7 +16,7 @@ public class ControladorPrincipal {
         mapa.put("title", "Inicio");
         return "Inicio.html";
     }
-    @PreAuthorize("hasAnyRole(ADMIN)")
+    
     @GetMapping ("/tarjetaCliente")
     private String tarjeta(ModelMap mapa){
         mapa.put("title", "Tarjeta");
