@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="./fragments/head :: head"></head>
 <body>
@@ -49,9 +49,9 @@
                             <div class="item-img mb-5">
                                 <img th:if="${foto=='application/octet-stream'}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
                                 <img th:if="${foto!='application/octet-stream'}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
-<!--                                <img th:if="${lubri.foto==null || lubri.foto.isEmpty}" src="./assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">-->
-                                <!--<img th:src="${'/foto/lubriRegistro/' + lubri.id}" alt="Foto Lubricentro">-->
-<!--                                <img th:src="@{/foto/lubriRegistro/{id}(id=${lubri.id})}" alt="Foto Lubricentro">-->
+                                <img th:if="${lubri.foto==null}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
+                                <img th:if="${lubri.foto!=null}" th:src="${'/foto/lubriRegistro/' + lubri.id}" alt="Foto Lubricentro">
+                                <img th:src="@{/foto/lubriRegistro/{id}(id=${lubri.id})}" alt="Foto Lubricentro">
 
                             </div>
 
@@ -164,4 +164,147 @@
     <script src="assets/theme/js/usuario.js"></script>
   
 </body>
+</html>-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="./fragments/head :: head"></head>
+    <body>
+        <section data-bs-version="5.1" class="menu menu3 cid-ug0nmDUkh7" once="menu" id="menu3-b">
+            <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+                <div class="container">
+                    <div class="navbar-brand">
+                        <span class="navbar-caption-wrap"><a class="navbar-caption text-secondary text-primary display-7" href="#">Lubricentro Digital</a></span>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <div class="hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </button>
+                    <div class="icons-menu">
+                        <a class="iconfont-wrapper" href="https://www.instagram.com/nicovherrera/" target="_blank">
+                            <span class="p-2 mbr-iconfont socicon-facebook socicon"></span>
+                        </a>
+                        <a class="iconfont-wrapper" href="https://www.instagram.com/nicovherrera/" target="_blank">
+                            <span class="p-2 mbr-iconfont socicon-instagram socicon"></span>
+                        </a>
+
+
+                    </div>
+
+                </div>
+                </div>
+            </nav>
+        </section>
+        <!-- Tarjeta de Cliente -->
+        <section data-bs-version="5.1" class="features4 cid-ug13NcXIgn py-5" id="features4-i">
+            <div class="container">
+                <!-- Título -->
+                <div class="mbr-section-head text-center mb-4">
+                    <h4 class="mbr-section-title mbr-fonts-style display-2">
+                        <strong th:text="${clientes.nombreCliente}"></strong>
+                    </h4>
+                    <h5 class="mbr-section-subtitle mbr-fonts-style display-5 text-muted" th:text="${clientes.patente}"></h5>
+                </div>
+
+                <!-- Foto y datos -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card shadow-lg">
+                            <!-- Imagen -->
+                            <div class="card-img-top text-center p-4">
+                                <img th:if="${foto=='application/octet-stream'}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
+                                <img th:if="${foto!='application/octet-stream'}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
+<!--                                <img th:if="${foto==null}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro" class="img-fluid rounded">
+                                <img th:if="${foto!=null}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro" class="img-fluid rounded">-->
+                            </div>
+
+                            <!-- Información del Cliente -->
+                            <div class="card-body">
+                                <h5 class="card-title text-center mb-4">Información del Vehículo</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <strong>Fecha de Cambio:</strong>
+                                        <span th:text="${clientes.fechaCarga}"></span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <strong>Marca:</strong>
+                                        <span th:text="${clientes.marca}"></span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <strong>Modelo:</strong>
+                                        <span th:text="${clientes.modelo}"></span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <strong>Año:</strong>
+                                        <span th:text="${clientes.anio}"></span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <strong>Kilómetros Actuales:</strong>
+                                        <span th:text="${clientes.kmActuales} + ' km'"></span>
+                                    </li>
+                                </ul>
+
+                                <!-- Lista de servicios -->
+                                <div class="mt-4">
+                                    <h6>Servicios Realizados:</h6>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <input type="checkbox" class="form-check-input me-2" disabled 
+                                                   th:checked="${clientes.filtroAceite}" />
+                                            Filtro de Aceite
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input type="checkbox" class="form-check-input me-2" disabled 
+                                                   th:checked="${clientes.filtroAire}" />
+                                            Filtro de Aire
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input type="checkbox" class="form-check-input me-2" disabled 
+                                                   th:checked="${clientes.filtroCombustible}" />
+                                            Filtro de Combustible
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input type="checkbox" class="form-check-input me-2" disabled 
+                                                   th:checked="${clientes.aceiteMotor}" />
+                                            Aceite de Motor
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input type="checkbox" class="form-check-input me-2" disabled 
+                                                   th:checked="${clientes.aceiteCaja}" />
+                                            Aceite de Caja
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input type="checkbox" class="form-check-input me-2" disabled 
+                                                   th:checked="${clientes.aceiteDiferencial}" />
+                                            Aceite de Diferencial
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Próximo cambio -->
+                                <div class="mt-4">
+                                    <h6 class="text-primary">Próximo Cambio:</h6>
+                                    <p class="display-6" th:text="${clientes.kmCambio} + ' km'"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4 justify-content-center">
+                            <div class="col-lg-8 text-center">
+                                <div class="alert alert-info py-4 shadow-lg">
+                                    <h5 class="alert-heading">¡Cotiza tu Seguro!</h5>
+                                    <p class="mb-0">Obtén las mejores ofertas para asegurar tu vehículo en pocos minutos.</p>
+                                    <a href="/cotizarSeguro" class="btn btn-primary mt-3">Cotizar Ahora</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+            </div>
+        </section>
+
+        <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>

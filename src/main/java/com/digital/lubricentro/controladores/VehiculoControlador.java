@@ -56,7 +56,7 @@ public class VehiculoControlador {
         Vehiculo vNuevo = vs.buscarVehiculoPorId(id);
         
         mapa.put("clientes", vNuevo);
-        mapa.put("foto", vNuevo.getUs().getFoto().getMime());
+        mapa.put("foto", vNuevo.getUs().getFoto());
         
         return "tarjeta";
     }
@@ -78,7 +78,7 @@ public class VehiculoControlador {
         Vehiculo vCliente = vs.buscarVehiculoPorId(id);
         
         mapa.put("lubri", vCliente.getUs());
-        mapa.put("foto", vCliente.getUs().getFoto().getMime());
+        mapa.put("foto", vCliente.getUs().getFoto());
         mapa.put("clientes", vCliente);
         
         return "tarjetaCliente";
