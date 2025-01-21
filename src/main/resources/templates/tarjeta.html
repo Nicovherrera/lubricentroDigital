@@ -276,7 +276,7 @@
                                     <!-- Próximo cambio -->
                                     <div class="mt-4">
                                         <label for="kmCambio" class="form-label">Próximo Cambio</label>
-                                        <input type="number" id="kmCambio" th:name="kmCambio" th:value="${clientes.kmCambio}" class="form-control" disabled="">
+                                        <input type="text" id="kmCambio" th:name="kmCambio" th:value="${clientes.kmCambio} + ' km'" class="form-control" disabled="">
                                     </div>
 
                                     <!-- Botón para actualizar -->
