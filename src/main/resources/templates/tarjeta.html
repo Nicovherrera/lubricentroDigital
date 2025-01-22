@@ -210,7 +210,7 @@
                             <!-- Imagen -->
                             <div class="card-img-top text-center p-4">
                                 <img th:if="${foto=='application/octet-stream'}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
-                                <img th:if="${foto!='application/octet-stream'}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
+                                <img th:if="${foto!='application/octet-stream'}" th:src="${'./foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
 <!--                                <img th:if="${foto==null}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro" class="img-fluid rounded">
                                 <img th:if="${foto!=null}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro" class="img-fluid rounded">-->
                             </div>
@@ -292,7 +292,7 @@
                 <!-- Compartir y volver -->
                 <div class="row mt-4 justify-content-center">
                     <div class="col-lg-4 text-center">
-                        <a th:href="@{'https://wa.me/?text=Visita%20tu%20tarjeta%20digital%20en:%20' + @{/tarjetaCliente/__${clientes.id}__}}" target="_blank" class="btn btn-success w-100 mb-2">
+                        <a th:href="@{'https://wa.me/?text=Visita%20tu%20tarjeta%20digital%20en:%20https://lubricentrodigital-production.up.railway.app' + @{/tarjetaCliente/__${clientes.id}__}}" target="_blank" class="btn btn-success w-100 mb-2">
                             Compartir Tarjeta <i class="bi bi-whatsapp"></i>
                         </a>
                         <a href="/misClientes" class="btn btn-secondary w-100">Volver a Mis Clientes</a>
