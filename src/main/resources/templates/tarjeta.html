@@ -292,7 +292,7 @@
                 <!-- Compartir y volver -->
                 <div class="row mt-4 justify-content-center">
                     <div class="col-lg-4 text-center">
-                        <a th:href="@{'https://wa.me/?text=Visita%20tu%20tarjeta%20digital%20en:%20https://lubricentrodigital-production.up.railway.app' + @{/tarjetaCliente/__${clientes.id}__}}" target="_blank" class="btn btn-success w-100 mb-2">
+                        <a th:href="@{'/tarjetaCliente/__${clientes.id}__}}" target="_blank" class="btn btn-success w-100 mb-2">    
                             Compartir Tarjeta <i class="bi bi-whatsapp"></i>
                         </a>
                         <a href="/misClientes" class="btn btn-secondary w-100">Volver a Mis Clientes</a>
