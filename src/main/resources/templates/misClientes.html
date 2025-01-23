@@ -32,8 +32,8 @@
                     <div th:each="clientes : ${vehiculos}" class="col-12 col-md-6 col-lg-4 mb-4">
                         <div class="card shadow-sm h-100">
                             <div class="card-img-top text-center p-4">
-                                <img th:if="${foto=='application/octet-stream'}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
-                                <img th:if="${foto!='application/octet-stream'}" th:src="${'./foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
+                                <img th:if="${foto=='application/octet-stream'}" src="./assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
+                                <img th:if="${foto!='application/octet-stream'}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
 <!--                                <img th:if="${session.usuariosession.foto == null}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro" class="img-fluid rounded">
                                 <img th:if="${session.usuariosession.foto != null}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro" class="img-fluid rounded">-->
                             </div>

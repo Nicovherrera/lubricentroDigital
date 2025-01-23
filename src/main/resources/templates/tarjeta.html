@@ -209,8 +209,8 @@
                         <div class="card shadow-lg">
                             <!-- Imagen -->
                             <div class="card-img-top text-center p-4">
-                                <img th:if="${foto=='application/octet-stream'}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
-                                <img th:if="${foto!='application/octet-stream'}" th:src="${'./foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
+                                <img th:if="${foto=='application/octet-stream'}" src="./assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
+                                <img th:if="${foto!='application/octet-stream'}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
 <!--                                <img th:if="${foto==null}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro" class="img-fluid rounded">
                                 <img th:if="${foto!=null}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro" class="img-fluid rounded">-->
                             </div>
