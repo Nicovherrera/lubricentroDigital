@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="./fragments/head :: head"></head>
+    <body>
+
+        <!-- Navbar -->
+        <section data-bs-version="5.1" class="menu menu3 cid-ug0nmDUkh7" once="menu" id="menu3-b">
+            <nav th:replace="./fragments/navbar :: nav"></nav>
+        </section>
+
+        <!-- Tarjeta de Cliente -->
+        <section data-bs-version="5.1" class="features4 cid-ug13NcXIgn py-5" id="features4-i">
+            <div class="container">
+                <!-- Título -->
+                <div class="mbr-section-head text-center mb-4">
+                    <h4 class="mbr-section-title mbr-fonts-style display-2">
+                        <strong th:text="${clientes.nombreCliente}"></strong>
+                    </h4>
+                    <h5 class="mbr-section-subtitle mbr-fonts-style display-5 text-muted" th:text="${clientes.patente}"></h5>
+                </div>
+
+                <!-- Foto y datos -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card shadow-lg">
+                            <!-- Imagen -->
+                            <div class="card-img-top text-center p-4">
+<!--                                <img src="./assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
+                                <img th:if="${foto!='application/octet-stream'}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">-->
+                                <img th:if="${foto==null}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro" class="img-fluid rounded">
+                                <img th:if="${foto!=null}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro" class="img-fluid rounded">
+                            </div>
+
+                            <!-- Formulario de edición -->
+                            <form th:action="@{/modificarTarjeta}" method="POST">
+                                <input type="hidden" th:name="id" th:value="${clientes.id}">
+                                <input type="hidden" th:name="nombreCliente" th:value="${clientes.nombreCliente}">
+                                <input type="hidden" th:name="patente" th:value="${clientes.patente}">
+
+                                <div class="card-body">
+                                    <h5 class="card-title text-center mb-4">Editar Información del Vehículo</h5>
+
+                                    <!-- Campos editables -->
+                                    <div class="mb-3">
+                                        <label for="fechaCarga" class="form-label">Fecha de Cambio</label>
+                                        <input type="text" id="fechaCarga" th:name="fechaCarga" th:value="${clientes.fechaCarga}" class="form-control" disabled="">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="marca" class="form-label">Marca</label>
+                                        <input type="text" id="marca" th:name="marca" th:value="${clientes.marca}" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="modelo" class="form-label">Modelo</label>
+                                        <input type="text" id="modelo" th:name="modelo" th:value="${clientes.modelo}" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="anio" class="form-label">Año</label>
+                                        <input type="number" id="anio" th:name="anio" th:value="${clientes.anio}" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="kmActuales" class="form-label">Kilómetros Actuales</label>
+                                        <input type="number" id="kmActuales" th:name="kmActuales" th:value="${clientes.kmActuales}" class="form-control">
+                                    </div>
+
+                                    <!-- Servicios -->
+                                    <h6 class="mt-4">Servicios Realizados:</h6>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" th:checked="${clientes.filtroAceite}" th:name="filtroAceite" id="filtroAceite">
+                                        <label class="form-check-label" for="filtroAceite">Filtro de Aceite</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" th:checked="${clientes.filtroAire}" th:name="filtroAire" id="filtroAire">
+                                        <label class="form-check-label" for="filtroAire">Filtro de Aire</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" th:checked="${clientes.filtroCombustible}" th:name="filtroCombustible" id="filtroCombustible">
+                                        <label class="form-check-label" for="filtroCombustible">Filtro de Combustible</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" th:checked="${clientes.aceiteMotor}" th:name="aceiteMotor" id="aceiteMotor">
+                                        <label class="form-check-label" for="aceiteMotor">Aceite de Motor</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" th:checked="${clientes.aceiteCaja}" th:name="aceiteCaja" id="aceiteCaja">
+                                        <label class="form-check-label" for="aceiteCaja">Aceite de Caja</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" th:checked="${clientes.aceiteDiferencial}" th:name="aceiteDiferencial" id="aceiteDiferencial">
+                                        <label class="form-check-label" for="aceiteDiferencial">Aceite de Diferencial</label>
+                                    </div>
+
+                                    <!-- Próximo cambio -->
+                                    <div class="mt-4">
+                                        <label for="kmCambio" class="form-label">Próximo Cambio</label>
+                                        <input type="text" id="kmCambio" th:name="kmCambio" th:value="${clientes.kmCambio} + ' km'" class="form-control" disabled="">
+                                    </div>
+
+                                    <!-- Botón para actualizar -->
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-primary">Actualizar Valores</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compartir y volver -->
+                <div class="row mt-4 justify-content-center">
+                    <div class="col-lg-4 text-center">
+                        <a th:href="@{/tarjetaCliente/__${clientes.id}__}" target="_blank" class="btn btn-success w-100 mb-2">    
+                            Compartir Tarjeta <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <a href="/misClientes" class="btn btn-secondary w-100">Volver a Mis Clientes</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
