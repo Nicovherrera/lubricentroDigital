@@ -40,12 +40,7 @@ public class LubricentroServicio {
         System.out.println("Lubri"+ lubri);
     }
     
-    public void modificarLubricentro(String id, String marca, String slogan, String mail, String calle, String altura,
-            String localidad, String telefono, String sitioWeb, String fotoId){
-        
-        
-        
-    }
+    
     public void buscarLubricentro(String mail){
         
        

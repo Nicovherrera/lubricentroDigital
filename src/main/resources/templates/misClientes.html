@@ -17,7 +17,7 @@
                     </h4>
                     <h5 class="mbr-section-subtitle mbr-fonts-style display-7 text-muted" th:text="'Hola, ' + ${session.usuariosession.nombreUsuario}"></h5>
                     <h5 class="mbr-section-subtitle mbr-fonts-style display-7 mt-2">
-                        <a th:href="@{/lubricentro}" class="text-primary">Mi Lubricentro</a>
+                        <a sec:authorize="hasAnyRole('ADMIN')" th:href="@{/miLubricentro/__${session.usuariosession.id}__}" class="text-primary">Mi Lubricentro</a>
                     </h5>
                 </div>
 
@@ -32,10 +32,10 @@
                     <div th:each="clientes : ${vehiculos}" class="col-12 col-md-6 col-lg-4 mb-4">
                         <div class="card shadow-sm h-100">
                             <div class="card-img-top text-center p-4">
-                                <img th:if="${foto=='application/octet-stream'}" src="./assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
-                                <img th:if="${foto!='application/octet-stream'}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">
-<!--                                <img th:if="${session.usuariosession.foto == null}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro" class="img-fluid rounded">
-                                <img th:if="${session.usuariosession.foto != null}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro" class="img-fluid rounded">-->
+<!--                                <img src="./assets/images/mbr-696x391.jpg" alt="Foto Lubricentro">
+                                <img th:if="${foto!='application/octet-stream'}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro">-->
+                                <img th:if="${session.usuariosession.foto == null}" src="/assets/images/mbr-696x391.jpg" alt="Foto Lubricentro" class="img-fluid rounded">
+                                <img th:if="${session.usuariosession.foto != null}" th:src="${'/foto/lubriRegistro/' + session.usuariosession.id}" alt="Foto Lubricentro" class="img-fluid rounded">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title text-center" th:text="${clientes.nombreCliente}"></h5>

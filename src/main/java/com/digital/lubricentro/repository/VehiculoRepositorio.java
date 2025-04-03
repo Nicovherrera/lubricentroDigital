@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VehiculoRepositorio extends JpaRepository <Vehiculo , String> {
     
-//     @Query("SELECT v FROM Vehiculo v WHERE v.us.id= :id")
-//    public List <Vehiculo> buscarPorIdUsuario (@Param("id") String Id);
+     @Query("SELECT v FROM Vehiculo v WHERE v.us.id= :id")
+    public List <Vehiculo> buscarPorIdUsuario (@Param("id") String Id);
     
     @Query("SELECT v FROM Vehiculo v WHERE v.us.id = :id ORDER BY v.fechaCarga DESC")
     Page<Vehiculo> findByUsuarioId(@Param("id") String id, Pageable pageable);

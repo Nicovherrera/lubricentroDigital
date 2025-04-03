@@ -7,6 +7,7 @@ import com.digital.lubricentro.servicios.UsuarioServicio;
 import com.digital.lubricentro.servicios.VehiculoServicio;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,11 +50,12 @@ public class VehiculoControlador {
             return "misClientes";
         }
     }
-    
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/tarjeta/{id}")
     public String tarjeta (ModelMap mapa, HttpSession session, @PathVariable String id){
                 
         Vehiculo vNuevo = vs.buscarVehiculoPorId(id);
+        
         
         mapa.put("clientes", vNuevo);
         mapa.put("foto", vNuevo.getUs().getFoto());

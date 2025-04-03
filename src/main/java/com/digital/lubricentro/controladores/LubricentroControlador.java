@@ -26,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class LubricentroControlador {
 
     @Autowired
-    private LubricentroServicio lubriServicio;
+    private LubricentroServicio lServicio;
 
     @Autowired
     private UsuarioServicio uServicio;
@@ -34,30 +34,23 @@ public class LubricentroControlador {
     @Autowired
     private VehiculoServicio vServicio;
 
-    //@PreAuthorize("hasAnyRole('1')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/misClientes")
-private String misClientes(ModelMap mapa, HttpSession session, @RequestParam(required = false) String nombre,
-                           @RequestParam(defaultValue = "0") int page,
+    public String misClientes(ModelMap mapa, HttpSession session, @RequestParam(required = false) 
+                           String nombre, @RequestParam(defaultValue = "0") int page,
                            @RequestParam(defaultValue = "3") int size) {
     mapa.put("title", "Mis Clientes");
     Usuario login = (Usuario) session.getAttribute("usuariosession");
     Pageable pageable = PageRequest.of(page, size);
-        System.out.println("NOMBRE: "+nombre );
     Page<Vehiculo> clientesPage;
-    
-        clientesPage = vServicio.encontrarVehiculoPorIdAndNombre(login.getId(), nombre, pageable);
-        System.out.println("clientes: "+ clientesPage);
-    
-
+    clientesPage = vServicio.encontrarVehiculoPorIdAndNombre(login.getId(), nombre, pageable);
     int totalPages = clientesPage.getTotalPages();
     mapa.addAttribute("currentPage", page);
     mapa.addAttribute("totalPages", Math.max(totalPages, 1)); // Siempre al menos 1
     mapa.addAttribute("vehiculos", clientesPage);
 
     return "misClientes";
-}
-
- 
+    }
     @PostMapping("/lubricentro")
     public String crearLubricentro(ModelMap mapa, @RequestParam String altura, @RequestParam String calle,
             @RequestParam String clave1, @RequestParam String clave2, @RequestParam MultipartFile archivo,
@@ -65,19 +58,7 @@ private String misClientes(ModelMap mapa, HttpSession session, @RequestParam(req
             String slogan, @RequestParam String telefono, String web) throws ErrorServicio {
 
         try {
-            System.out.println("altura: " + altura);
-            System.out.println("calle: " + calle);
-            System.out.println("clave1: " + clave1);
-            System.out.println("clave2: " + clave2);
-            System.out.println("fotoId: " + archivo);
-            System.out.println("localidad: " + localidad);
-            System.out.println("mail usuario: " + mailUsuario);
-            System.out.println("marca: " + marca);
-            System.out.println("nombre us: " + nombreUsuario);
-            System.out.println("slogan: " + slogan);
-            System.out.println("tel: " + telefono);
-            System.out.println("web: " + web);
-
+          
             uServicio.crearUsuario(altura, calle, clave1, clave2, archivo, localidad, mailUsuario, marca, nombreUsuario,
                     slogan, telefono, web);
             return "iniciarSesion";
@@ -104,4 +85,36 @@ private String misClientes(ModelMap mapa, HttpSession session, @RequestParam(req
 
         return "redirect:/misClientes";
     }
+   @PostMapping("/modificar-usuario")
+    public String modificarUsuario(ModelMap mapa, @RequestParam String id, @RequestParam String altura, 
+        @RequestParam String calle, @RequestParam String clave1, @RequestParam String clave2, 
+        @RequestParam MultipartFile archivo, @RequestParam String localidad, 
+        @RequestParam String mailUsuario, @RequestParam String marca, @RequestParam String nombreUsuario, 
+        @RequestParam String slogan, @RequestParam String telefono, @RequestParam String sitioWeb) {
+        System.out.println("nombreUsuarioC: "+ nombreUsuario);
+        System.out.println("MarcaC: "+ marca);
+        System.out.println("idC: "+ id);
+        System.out.println("claveC: "+ clave1);
+    try {
+        uServicio.modificarUsuario(id, altura, calle, clave1, clave2, archivo, localidad, mailUsuario, marca, 
+                nombreUsuario, slogan, telefono, sitioWeb);
+        return "redirect:/miLubricentro/"+id;
+    } catch (ErrorServicio e) {
+        mapa.addAttribute("errorM", e.getMessage());
+        mapa.addAttribute("id", id);
+        mapa.addAttribute("altura", altura);
+        mapa.addAttribute("calle", calle);
+        mapa.addAttribute("clave1", clave1);
+        mapa.addAttribute("clave2", clave2);
+        mapa.addAttribute("localidad", localidad);
+        mapa.addAttribute("mailUsuario", mailUsuario);
+        mapa.addAttribute("marca", marca);
+        mapa.addAttribute("nombreUsuario", nombreUsuario);
+        mapa.addAttribute("slogan", slogan);
+        mapa.addAttribute("telefono", telefono);
+        mapa.addAttribute("sitioWeb", sitioWeb);
+        mapa.addAttribute("archivo", archivo);
+        return "redirect:/miLubricentro/"+id;
+    }
+}
 }

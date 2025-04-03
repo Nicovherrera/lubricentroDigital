@@ -46,19 +46,7 @@ public class UsuarioServicio implements UserDetailsService{
             String telefono, String sitioWeb) throws ErrorServicio{
        
         Usuario us = new Usuario();
-            System.out.println("altura S: "+ altura);
-            System.out.println("calle S: "+ calle);
-            System.out.println("clave1 S: "+ clave1);
-            System.out.println("clave2 S: "+ clave2);
-            System.out.println("fotoId S: "+ archivo);
-            System.out.println("localidad S: "+ localidad);
-            System.out.println("mail usuario S: "+ mailUsuario);
-            System.out.println("marca S: "+ marca);
-            System.out.println("nombre us S: "+ nombreUsuario);
-            System.out.println("slogan S: "+ slogan);
-            System.out.println("tel S: "+ telefono);
-            System.out.println("web S: "+ sitioWeb);
-       
+            
         validar(nombreUsuario,mailUsuario,clave1,clave2);
         
         us.setFechaAlta(new Date());
@@ -79,8 +67,49 @@ public class UsuarioServicio implements UserDetailsService{
         us.setClave1(encriptada);
         us.setRol(Rol.ADMIN);
         uRepo.save(us);
-        System.out.println("Usuario" + us.getLubris());
         
+    }
+    public void modificarUsuario(String id, String altura, String calle, String clave1, String clave2,
+            MultipartFile archivo, String localidad, String mailUsuario, String marca, String nombreUsuario,
+            String slogan, String telefono, String sitioWeb) throws ErrorServicio {
+        
+        System.out.println("nombreUsuarioS: "+ nombreUsuario);
+        System.out.println("MarcaS: "+ marca);
+        System.out.println("idS: "+ id);
+        System.out.println("claveS: "+ clave1);
+        System.out.println("ArchivoS: "+ archivo);
+        
+        Optional<Usuario> optionalUsuario = uRepo.findById(id);
+        if (optionalUsuario.isPresent()) {
+            Usuario us = optionalUsuario.get();
+            System.out.println("Usuario: "+ us.getNombreUsuario());
+
+            us.setNombreUsuario(nombreUsuario.toUpperCase());
+            us.setMailUsuario(mailUsuario.toLowerCase());
+            us.setMarca(marca);
+            us.setSlogan(slogan);
+            us.setCalle(calle);
+            us.setAltura(altura);
+            us.setLocalidad(localidad);
+            us.setTelefono(telefono);
+            us.setSitioWeb(sitioWeb);
+
+            if (!archivo.isEmpty()) {
+                Foto foto = fServicio.guardarFoto(archivo);
+                us.setFoto(foto);
+            }
+
+            if (clave1 != null && !clave1.isEmpty()) {
+                
+                String encriptada = new BCryptPasswordEncoder().encode(clave1);
+                us.setClave1(encriptada);
+            }
+
+            uRepo.save(us);
+            System.out.println("Usuario modificado: " + us.getNombreUsuario());
+        } else {
+            throw new ErrorServicio("No se encontró el usuario con el ID especificado.");
+        }
     }
     public Usuario bucarUsuarioPorMail (String mailUsuario){
         

@@ -81,10 +81,16 @@ public class VehiculoServicio {
         vRepo.save(vM);
     }
     
-    public List listarVehiculos (){
-        return vRepo.findAll();
+    public int listarVehiculos (){
+        int cantVehicuos = vRepo.findAll().size();
+        return cantVehicuos;
     }
-    public Page<Vehiculo> encontrarVehiculoPorIdAndNombre(String id, String nombre, Pageable pageable) {
+    public int contarVehiculosPorId (String id){
+        int cantVehicuos = vRepo.buscarPorIdUsuario(id).size();
+        return cantVehicuos;
+    }
+    public Page<Vehiculo> encontrarVehiculoPorIdAndNombre(String id, String nombre, Pageable pageable) 
+             {
         if(nombre != null && !nombre.isEmpty()){
             return vRepo.encontrarVehiculoConIdAndNombre(id, "%"+ nombre +"%", pageable);
         }else{
